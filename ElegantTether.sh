@@ -35,8 +35,8 @@ echo $ibecdownload
 
 LIPSWURL=$(curl https://api.ipsw.me/v2.1/$model/14B100/url/)
 echo $LIPSWURL
-./bin/pzb download $LIPSWURL Firmware/Mav7Mav8-7.01.00.Release.bbfw bb.bbfw
-./bin/pzb download $LIPSWURL Firmware/all_flash/all_flash.$bconfig.production/sep-firmware.$dbconfig.RELEASE.im4p sep.im4p
+./bin/pzb download $LIPSWURL /Firmware/Mav7Mav8-7.01.00.Release.bbfw bb.bbfw
+./bin/pzb download $LIPSWURL /Firmware/all_flash/all_flash.$bconfig.production/sep-firmware.$dbconfig.RELEASE.im4p sep.im4p
 
 #tsschecker
 ./bin/tsschecker -B $bconfig -d $model -s -e $ecid -m bm12.plist --apnonce $nonce
