@@ -15,7 +15,7 @@ echo "Your ECID is $ecid"
 
 model=$(./bin/igetnonce | grep "iP.* in" -o | rev | cut -c 4- | rev)
 bconfig=$(./bin/igetnonce | grep "device as .*, " -o | rev | cut -c 3- | rev | cut -c 11-)
-dbconfig=$(./igetnonce | grep "device as .*, " -o | rev | cut -c 5- | rev | cut -c 11-)
+dbconfig=$(./bin/igetnonce | grep "device as .*, " -o | rev | cut -c 5- | rev | cut -c 11-)
 echo "Your device is an $model"
 echo "Your boardconfig is $bconfig"
 
@@ -33,12 +33,13 @@ ibssdownload=$(bin/pzb download $IPSWURL $ibsspath ibss.im4p)
 echo $ibssdownload
 echo $ibecdownload
 
-10IPSWURL=$(curl https://api.ipsw.me/v2.1/$model/14B100/url/)
-bin/pzb download $10IPSWURL Firmware/Mav7Mav8-7.01.00.Release.bbfw bb.bbfw
-bin/pzb download $10IPSWURL Firmware/all_flash/all_flash.$bconfig.production/sep-firmware.$dbconfig.RELEASE.im4p sep.im4p
+LIPSWURL=$(curl https://api.ipsw.me/v2.1/$model/14B100/url/)
+echo $LIPSWURL
+./bin/pzb download $LIPSWURL Firmware/Mav7Mav8-7.01.00.Release.bbfw bb.bbfw
+./bin/pzb download $LIPSWURL Firmware/all_flash/all_flash.$bconfig.production/sep-firmware.$dbconfig.RELEASE.im4p sep.im4p
 
 #tsschecker
-bin/tsschecker -B $bconfig -d $model -s -e $ecid -m bm12.plist --apnonce $nonce
+./bin/tsschecker -B $bconfig -d $model -s -e $ecid -m bm12.plist --apnonce $nonce
 echo "*SIGNING iBSS*"
 #sign
 mv *.shsh* shsh.shsh
